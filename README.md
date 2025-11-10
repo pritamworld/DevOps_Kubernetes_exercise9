@@ -2,7 +2,7 @@ Gotcha—sounds like you want an **nginx Deployment with 3 replicas** and a **No
 
 ### 1) Manifest (recommended)
 
-Save as `nginx-deploy-nodeport.yaml`:
+Save as `nginx-deploy.yaml`:
 
 ```yaml
 apiVersion: apps/v1
@@ -36,6 +36,10 @@ spec:
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
+```
+Save as `nginx-service.yaml`:
+
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -55,7 +59,8 @@ spec:
 Apply & verify:
 
 ```bash
-kubectl apply -f nginx-deploy-nodeport.yaml
+kubectl apply -f nginx-deploy.yaml
+kubectl apply -f nginx-service.yaml
 kubectl rollout status deployment/nginx
 kubectl get pods -l app=nginx -o wide
 kubectl get svc nginx-nodeport
@@ -89,7 +94,8 @@ minikube service nginx-nodeport --url
 ### Cleanup
 
 ```bash
-kubectl delete -f nginx-deploy-nodeport.yaml
+kubectl delete -f nginx-deploy.yaml
+kubectl delete -f nginx-service.yaml
 # or, if you used the one-liners:
 kubectl delete svc nginx-nodeport
 kubectl delete deploy nginx
