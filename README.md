@@ -30,12 +30,14 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 10
           livenessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
+            timeoutSeconds: 10
 ```
 Save as `nginx-service.yaml`:
 
